@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 @Component
 public class ReservationVO {
-	private int num,state;
-	private String name,tel,point;
+	private int num,state ,point;
+	private String name,tel;
 	private Date VisitDate,RegiDate;
 	private Time ConsTime;
 	public int getNum() {
@@ -35,10 +35,10 @@ public class ReservationVO {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	public String getPoint() {
+	public int getPoint() {
 		return point;
 	}
-	public void setPoint(String point) {
+	public void setPoint(int point) {
 		this.point = point;
 	}
 	public Date getVisitDate() {

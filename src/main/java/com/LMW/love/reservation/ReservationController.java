@@ -13,9 +13,9 @@ public class ReservationController {
 	private ReservationService homeService;
 	
 	private ModelAndView mav = new ModelAndView();
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView home() {
-		mav.setViewName("home");
+	@RequestMapping(value = "/rescheck", method = RequestMethod.GET)
+	public ModelAndView rescheck() {
+		mav.setViewName("rescheck");
 		return mav;
 	}
 	

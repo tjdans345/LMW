@@ -13,9 +13,9 @@ public class PointController {
 	private PointService homeService;
 	
 	private ModelAndView mav = new ModelAndView();
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView home() {
-		mav.setViewName("home");
+	@RequestMapping(value = "/point", method = RequestMethod.GET)
+	public ModelAndView point() {
+		mav.setViewName("point");
 		return mav;
 	}
 	
