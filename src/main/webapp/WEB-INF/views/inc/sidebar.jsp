@@ -10,11 +10,11 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${contextPath}/index.do"
+                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${contextPath}/index.con"
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                                     class="hide-menu">Dashboard</span></a></li>
                         <li class="list-divider"></li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${contextPath}/com.do"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${contextPath}/com.con"
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                                     class="hide-menu">복붙용 페이지</span></a></li>
                         <li class="list-divider"></li>
