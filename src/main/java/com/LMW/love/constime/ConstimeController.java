@@ -13,9 +13,14 @@ public class ConstimeController {
 	private ConstimeService constimeService;
 	
 	private ModelAndView mav = new ModelAndView();
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public ModelAndView home() {
-		mav.setViewName("home");
+	@RequestMapping(value = "/com", method = RequestMethod.GET)
+	public ModelAndView com() {
+		mav.setViewName("com");
+		return mav;
+	}
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	public ModelAndView index() {
+		mav.setViewName("index");
 		return mav;
 	}
 	
