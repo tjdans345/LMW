@@ -9,8 +9,21 @@
     		<result property="name" column="name" />
     		<result property="tel" column="tel" />
     		<result property="point" column="point" />
-    		<result property="VisitDate" column="VisitDate" />
-    		<result property="RegiDate" column="RegiDate" />
-    		<result property="ConsTime" column="ConsTime" />
+    		<result property="visitDate" column="VisitDate" />
+    		<result property="regiDate" column="RegiDate" />
+    		<result property="consTime" column="ConsTime" />
     	</resultMap>
+    	
+    	<select id="reslist" resultMap="ReservationResult" >
+    		<![CDATA[
+    			select r.num,r.name,r.tel,p.pointName point,r.VisitDate,r.ConsTime,r.RegiDate,
+    			r.state from reservation r join point p on r.point = p.num
+    			limit 0,10;
+    		]]>
+    	</select>
+    	<select id="resinfo" parameterType="int" resultType="reservationVO">
+    		<![CDATA[
+    			select * from reservation where num=#{num}
+    		]]>
+    	</select>
    </mapper>

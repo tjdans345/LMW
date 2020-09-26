@@ -3,7 +3,7 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />    
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />        
     
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -18,10 +18,6 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="${contextPath}/resources/assets/images/favicon.png">
     <title>Adminmart Template - The Ultimate Multipurpose admin template</title>
-    <!-- Custom CSS -->
-    <link href="${contextPath}/resources/assets/extra-libs/c3/c3.min.css" rel="stylesheet">
-    <link href="${contextPath}/resources/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
-    <link href="${contextPath}/resources/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
     <!-- Custom CSS -->
     <link href="${contextPath}/resources/dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -45,8 +41,7 @@
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
-    <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-        data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
+    <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
@@ -268,12 +263,8 @@
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
-        
-          <!-- 사이드바 -->
-        <jsp:include page="./inc/sidebar.jsp" />
-         <!-- 사이드바 -->
-         
-        <!-- ============================================================== -->
+        <jsp:include page="./inc/sidebar.jsp"/>
+                <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
@@ -283,15 +274,15 @@
             <!-- ============================================================== -->
             <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
-             <div class="page-breadcrumb">
+            <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-7 align-self-center">
-                        <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Good Morning Jason!</h3>
+                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Form Input Grid</h4>
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">
-                                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a>
-                                    </li>
+                                    <li class="breadcrumb-item"><a href="index.html" class="text-muted">Home</a></li>
+                                    <li class="breadcrumb-item text-muted active" aria-current="page">Library</li>
                                 </ol>
                             </nav>
                         </div>
@@ -314,56 +305,182 @@
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
-                <!-- *************************************************************** -->
-                <!-- Start First Cards -->
-                <!-- *************************************************************** -->
-                <div class="card-group">
-                  
-                  <!-- 테이블 -->
-                  <div class="col-12">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">예약하기</h4>
-                                <h6 class="card-title mt-5"><i
-                                        class="mr-1 font-18 mdi mdi-numeric-1-box-multiple-outline"></i> Table With
-                                    Outside Padding</h6>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">번호</th>
-                                                <th scope="col">이름</th>
-                                                <th scope="col">연락처</th>
-                                                <th scope="col">지점</th>
-                                                <th scope="col">방문날짜</th>
-                                                <th scope="col">상담시간</th>
-                                                <th scope="col">등록일</th>
-                                                <th scope="col">상태</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <c:forEach items="${reslist}" var="i">
-                                            <tr>
-                                            	<th>${i.num}</th>
-                                            	<td><a href="${contextPath}/resMod.res?num=${i.num}">${i.name}</a></td>
-                                            	<td>${i.tel}</td>
-                                            	<td>${i.point}</td>
-                                            	<td><f:formatDate value="${i.visitDate}" pattern="yyyy-MM-dd"/></td>
-                                            	<td>${i.consTime}</td>
-                                            	<td><f:formatDate value="${i.regiDate}" pattern="yyyy-MM-dd"/></td>
-                                            	<td>${i.state}</td>
-                                            </tr>
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
-                             
+                                <h4 class="card-title">Grid With Row Label</h4>
+                                <form action="#">
+                                    <div class="form-body">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-lg-1">번호</label>
+                                                <div class="col-lg-11">
+                                                    <div class="row">
+                                                        <div class="col-md-11">
+                                                            <input type="text" class="form-control" value="${resinfo.num}" name="num" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-lg-1">이름</label>
+                                                <div class="col-lg-11">
+                                                    <div class="row">
+                                                        <div class="col-md-11">
+                                                            <input type="text" class="form-control" name="name" value="${resinfo.name}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-lg-1">연락처</label>
+                                                <div class="col-lg-11">
+                                                    <div class="row">
+                                                        <div class="col-md-11">
+                                                            <input type="text" class="form-control" name="tel" value="${resinfo.tel}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-lg-1">지점</label>
+                                                <div class="col-lg-11">
+                                                    <div class="row">
+                                                        <div class="col-md-11">
+                                                            <select class="form-control" name="point">
+                                                            <c:forEach items="${getPoint}" var="i">
+                                                            <c:choose>
+                                                            	<c:when test="${resinfo.point==i.num}">
+                                                            	<option value="${i.num}" selected="selected">${i.pointName}</option>
+                                                            	</c:when>
+                                                            	<c:otherwise>
+                                                            <option value="${i.num}">${i.pointName}</option>
+                                                            	</c:otherwise>
+                                                            </c:choose>
+                                                            </c:forEach>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-lg-1">방문날짜</label>
+                                                <div class="col-lg-11">
+                                                    <div class="row">
+                                                        <div class="col-md-11">
+                                                            <input type="date" name="visitDate" class="form-control" value="<f:formatDate value="${resinfo.visitDate}" pattern="yyyy-MM-dd"/>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-lg-1">상담시간</label>
+                                                <div class="col-lg-11">
+                                                    <div class="row">
+                                                        <div class="col-md-11">
+                                                            <select class="form-control" name="consTime">
+                                                            <c:forEach begin="9" end="20" var="i">
+                                                            	<option value="i">
+		                                                            <c:choose>
+		                                                            	<c:when test="${i<12}">
+		                                                            		<c:choose>
+		                                                            			<c:when test="${resinfo.consTime==i}">
+		                                                            			<option value="${i}" selected>오전 ${i}시</option>
+		                                                            			</c:when>
+		                                                            			<c:otherwise>
+		                                                            			<option value="${i}">오전 ${i}시</option>
+		                                                            			</c:otherwise>
+		                                                            		</c:choose>
+		                                                            	</c:when>
+		                                                            	<c:when test="${i==12}">
+		                                                            		<c:choose>
+		                                                            			<c:when test="${resinfo.consTime==i}">
+		                                                            			<option value="${i}" selected>오후 ${i}시</option>
+		                                                            			</c:when>
+		                                                            			<c:otherwise>
+		                                                            			<option value="${i}">오후 ${i}시</option>
+		                                                            			</c:otherwise>
+		                                                            		</c:choose>
+		                                                            	</c:when>
+		                                                            	<c:otherwise>
+		                                                            		<c:choose>
+		                                                            			<c:when test="${resinfo.consTime==i}">
+		                                                            				<option value="${i}" selected>오후 ${i-12}시</option>
+		                                                            			</c:when>
+		                                                            			<c:otherwise>
+		                                                            				<option value="${i}">오후 ${i-12}시</option>
+		                                                            			</c:otherwise>
+		                                                            		</c:choose>
+		                                                            	</c:otherwise>
+		                                                            </c:choose>
+	                                                            </option>
+                                                            </c:forEach>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-lg-1">남기실말씀</label>
+                                                <div class="col-lg-11">
+                                                    <div class="row">
+                                                        <div class="col-md-11">
+                                                            <textarea class="form-control" rows="3" style="margin-top: 0px; margin-bottom: 0px; height: 144px; resize: none;" name="memo">${resinfo.memo}</textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-lg-1">상태</label>
+                                                <div class="col-lg-11">
+                                                    <div class="row">
+                                                        <div class="col-md-11">
+                                                        	<c:choose>
+                                                        		<c:when test="${resinfo.state==1}">
+                                                            <input type="text" class="form-control" value="대기중" readonly name="state">
+                                                        		</c:when>
+                                                        		<c:otherwise>
+                                                            <input type="text" class="form-control" value="확인" readonly name="state">
+                                                        		</c:otherwise>
+                                                        	</c:choose>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <div class="text-right">
+                                            <button type="submit" class="btn btn-info">Submit</button>
+                                            <button type="reset" class="btn btn-dark">Reset</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            
                         </div>
                     </div>
-                    <!-- 테이블 -->
                 </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
             </div>
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
@@ -391,24 +508,22 @@
     <!-- All Jquery -->
     <!-- ============================================================== -->
     <script src="${contextPath}/resources/assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
     <script src="${contextPath}/resources/assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="${contextPath}/resources/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- apps -->
     <!-- apps -->
     <script src="${contextPath}/resources/dist/js/app-style-switcher.js"></script>
     <script src="${contextPath}/resources/dist/js/feather.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
     <script src="${contextPath}/resources/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="${contextPath}/resources/assets/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
+    <!-- themejs -->
+    <!--Menu sidebar -->
     <script src="${contextPath}/resources/dist/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="${contextPath}/resources/dist/js/custom.min.js"></script>
-    <!--This page JavaScript -->
-    <script src="${contextPath}/resources/assets/extra-libs/c3/d3.min.js"></script>
-    <script src="${contextPath}/resources/assets/extra-libs/c3/c3.min.js"></script>
-    <script src="${contextPath}/resources/assets/libs/chartist/dist/chartist.min.js"></script>
-    <script src="${contextPath}/resources/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-    <script src="${contextPath}/resources/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
-    <script src="${contextPath}/resources/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
-    <script src="${contextPath}/resources/dist/js/pages/dashboards/dashboard1.min.js"></script>
 </body>
 
 </html>

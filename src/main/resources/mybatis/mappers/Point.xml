@@ -6,7 +6,11 @@
     	<resultMap type="pointVO" id="PointResult">
     		<result property="state" column="state" />
     		<result property="num" column="num" />
-    		<result property="PointName" column="PointName" />
+    		<result property="pointName" column="PointName" />
    </resultMap>
-
+		<select id="getPoint" resultMap="PointResult">
+			<![CDATA[
+				select * from point where state=1
+			]]>
+		</select>
    </mapper>
