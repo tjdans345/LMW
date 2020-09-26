@@ -14,12 +14,11 @@
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                                     class="hide-menu">Home</span></a></li>
                         <li class="list-divider"></li>
-<<<<<<< HEAD
+
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${contextPath}/com.con"
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                                     class="hide-menu">복붙용 페이지</span></a></li>
-=======
->>>>>>> cc5a093b0d58e1c71a482631d0a7ece789bfdd35
+
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><a href="${contextPath}/com.res"><span class="hide-menu">예약관리</span></a></li>
 

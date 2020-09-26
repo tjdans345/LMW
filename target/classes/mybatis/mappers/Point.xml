@@ -6,10 +6,15 @@
     	<resultMap type="pointVO" id="PointResult">
     		<result property="state" column="state" />
     		<result property="num" column="num" />
-    		<result property="PointName" column="PointName" />
+    		<result property="pointName" column="PointName" />
    </resultMap>
 	
-	
+	<!-- 지점관리 모든 리스트 조회 -->
+	<select id="allList" resultMap="PointResult">
+		<![CDATA[
+		select * from Point
+		]]>
+	</select>
 	
 	
 	

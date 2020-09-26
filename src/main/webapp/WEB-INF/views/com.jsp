@@ -23,65 +23,12 @@
     <link href="${contextPath}/resources/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
     <!-- Custom CSS -->
     <link href="${contextPath}/resources/dist/css/style.min.css" rel="stylesheet">
- 	<script type="text/javascript"	src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
- 	
- 	
- <style type="text/css">
- #no-btn {
- 	background-color: #ffffff;
- 	border-color: #ea0000;
- 	color: #ea0000;
- 	font-size: 0.9rem;
- 	
- }
- 
- #no-btn:hover {
-	background-color: #f50000;
-	color: #ffffff;
-}
- 
- 
- </style>
- 
- <script type="text/javascript">
- 
- $(document).ready(function() {
- 
-
- $(".yes-btn").click(function() {
-	 
-	 var state = $(".yes-btn").val();
-	 var num = $(this).data("num");
-	 alert("안녕하세요 yes버튼입니다.zzz?" + state + num);
-	 $.ajax({
-		url:"yes.poi",
-		type:"post",
-		data: {"state" : state, "num" : num},
-		dataType : "json",
-		success:function(data) {
-			alert("통신 성공");
-		},
-		error:function(data){
-			alert("통신 실패");
-		}
-	 });
-	});
-
- $(".no-btn").click(function() {
-
-	 alert("안녕하세요 no버튼입니다.?");
-	 
-	 
-	});
- 
- 
- 
- 
- });
- 
- 
- </script>
- 
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
 </head>
 
 <body>
@@ -332,7 +279,39 @@
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
         <div class="page-wrapper">
-           
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+             <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-7 align-self-center">
+                        <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Good Morning Jason!</h3>
+                        <div class="d-flex align-items-center">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb m-0 p-0">
+                                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a>
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="col-5 align-self-center">
+                        <div class="customize-input float-right">
+                            <select class="custom-select custom-select-set form-control bg-white border-0 custom-shadow custom-radius">
+                                <option selected>Aug 19</option>
+                                <option value="1">July 19</option>
+                                <option value="2">Jun 19</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
             <div class="container-fluid">
                 <!-- *************************************************************** -->
                 <!-- Start First Cards -->
@@ -343,40 +322,35 @@
                   <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">지점 관리</h4>
-                               
-                               
+                                <h4 class="card-title">Default Table</h4>
+                                <h6 class="card-title mt-5"><i
+                                        class="mr-1 font-18 mdi mdi-numeric-1-box-multiple-outline"></i> Table With
+                                    Outside Padding</h6>
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
-                                            <tr align="center" style="text-align: center;">
-                                                <th scope="col" width="100" >번호</th>
-                                                <th scope="col" width="700" >지점</th>
-                                                <th scope="col" width="300" >출력 상태</th>
-                                                <th scope="col" width="300" >관리</th>
+                                            <tr>
+                                                <th scope="col">번호</th>
+                                                <th scope="col">이름</th>
+                                                <th scope="col">연락처</th>
+                                                <th scope="col">지점</th>
+                                                <th scope="col">방문날짜</th>
+                                                <th scope="col">상담시간</th>
+                                                <th scope="col">등록일</th>
+                                                <th scope="col">상태</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                       		<c:forEach var="list" items="${pointList}">
-                                            <tr align="center" style="text-align: center;">
-                                                <th scope="row" width="100">${list.num}</th>
-                                                <td width="700" >${list.pointName}</td>
-                                                <c:if test="${list.state == 1}">
-                                                <td width="300" >
-                                                <button type="button" class="btn waves-effect waves-light btn-outline-info yes-btn" style="font-size: 0.9rem;" value="0" data-num="${list.num}">출력</button>
-                                                </td>
-                                                </c:if>
-                                                <c:if test="${list.state == 0}">
-                                                <td width="300" >
-                                                <button type="button" class="btn waves-effect waves-light btn-danger no-btn" data-num="${list.num}" value="1">안함</button>
-                                                </td>
-                                                </c:if>
-                                                
-                                                <td width="300" >
-													<button type="button" class="btn waves-effect waves-light btn-warning" style="font-size: 0.9rem;">수정ㅋ</button>
-													<button type="button" class="btn waves-effect waves-light btn-danger" style="font-size: 0.9rem;">삭제</button>
-													
-												</td>
+                                            <c:forEach items="reslist" varStatus="i">
+                                            <tr>
+                                            	<th>${i.count}</th>
+                                            	<td>${name}</td>
+                                            	<td>${tel}</td>
+                                            	<td>${point}</td>
+                                            	<td>${VisitDate}</td>
+                                            	<td>${ConsTime}</td>
+                                            	<td>${RegiDate}</td>
+                                            	<td>${state}</td>
                                             </tr>
                                             </c:forEach>
                                         </tbody>
