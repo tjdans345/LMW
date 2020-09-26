@@ -26,7 +26,7 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-
+	
 	<!-- Processes application requests -->
 	<servlet>
 		<servlet-name>resServlet</servlet-name>
@@ -56,7 +56,7 @@
 		<url-pattern>*.poi</url-pattern>
 	</servlet-mapping>
 	
-			<servlet>
+	<servlet>
 		<servlet-name>constimeServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
@@ -69,5 +69,4 @@
 		<servlet-name>constimeServlet</servlet-name>
 		<url-pattern>*.con</url-pattern>
 	</servlet-mapping>
-
 </web-app>
