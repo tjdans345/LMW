@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   <mapper namespace="mapper.Point">
+    	<resultMap type="pointVO" id="PointResult">
+    		<result property="state" column="state" />
+    		<result property="num" column="num" />
+    		<result property="PointName" column="PointName" />
+   </resultMap>
+
+   </mapper>
