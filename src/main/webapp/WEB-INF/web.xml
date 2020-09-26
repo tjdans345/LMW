@@ -27,7 +27,7 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	
-	<!-- Processes application requests -->
+	<!-- 예약 -->
 	<servlet>
 		<servlet-name>resServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -41,7 +41,9 @@
 		<servlet-name>resServlet</servlet-name>
 		<url-pattern>*.res</url-pattern>
 	</servlet-mapping>
-	
+	<!-- 예약 -->
+
+	<!-- 지점 -->
 		<servlet>
 		<servlet-name>pointServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -55,7 +57,9 @@
 		<servlet-name>pointServlet</servlet-name>
 		<url-pattern>*.poi</url-pattern>
 	</servlet-mapping>
+	<!-- 지점 -->
 	
+	<!-- 상담 -->
 	<servlet>
 		<servlet-name>constimeServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -69,4 +73,6 @@
 		<servlet-name>constimeServlet</servlet-name>
 		<url-pattern>*.con</url-pattern>
 	</servlet-mapping>
+	<!-- 상담 -->
+	
 </web-app>

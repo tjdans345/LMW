@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class PointVO {
 	private int num,state;
-	private String PointName;
+	private String pointName;
 	
 	
 	public int getNum() {
@@ -20,10 +20,11 @@ public class PointVO {
 		this.state = state;
 	}
 	public String getPointName() {
-		return PointName;
+		return pointName;
 	}
 	public void setPointName(String pointName) {
-		PointName = pointName;
+		this.pointName = pointName;
 	}
+	
 
 }
