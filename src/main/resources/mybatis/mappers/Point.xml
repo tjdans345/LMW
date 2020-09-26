@@ -8,5 +8,10 @@
     		<result property="num" column="num" />
     		<result property="PointName" column="PointName" />
    </resultMap>
-
+	
+	
+	
+	
+	
+	
    </mapper>
