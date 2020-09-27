@@ -24,6 +24,4 @@ public class PointVO {
 		this.pointName = pointName;
 	}
 	
-	
-
 }

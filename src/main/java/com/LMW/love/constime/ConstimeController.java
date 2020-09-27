@@ -23,4 +23,9 @@ public class ConstimeController {
 		mav.setViewName("constime");
 		return mav;
 	}
+	@RequestMapping(value = "/com", method = RequestMethod.GET)
+	public ModelAndView com() {
+		mav.setViewName("com");
+		return mav;
+	}
 }

@@ -14,6 +14,11 @@
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                                     class="hide-menu">Home</span></a></li>
                         <li class="list-divider"></li>
+
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${contextPath}/com.con"
+                                aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
+                                    class="hide-menu">복붙용 페이지</span></a></li>
+
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><a href="${contextPath}/com.res"><span class="hide-menu">예약관리</span></a></li>
 
