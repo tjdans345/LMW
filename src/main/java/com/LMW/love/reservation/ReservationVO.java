@@ -2,16 +2,30 @@ package com.LMW.love.reservation;
 
 
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import org.springframework.stereotype.Component;
 @Component
 public class ReservationVO {
 	private int num,state;
-	private String name,tel,point,consTime,memo;
-	private Timestamp visitDate,regiDate;
+	private String name,tel,point,consTime,memo,adminMemo;
+	private Timestamp regiDate,ModDate;
+	private Date visitDate;
 	
 	
+	public String getAdminMemo() {
+		return adminMemo;
+	}
+	public void setAdminMemo(String adminMemo) {
+		this.adminMemo = adminMemo;
+	}
+	public Timestamp getModDate() {
+		return ModDate;
+	}
+	public void setModDate(Timestamp modDate) {
+		ModDate = modDate;
+	}
 	public String getMemo() {
 		return memo;
 	}
@@ -48,10 +62,10 @@ public class ReservationVO {
 	public void setPoint(String point) {
 		this.point = point;
 	}
-	public Timestamp getVisitDate() {
+	public Date getVisitDate() {
 		return visitDate;
 	}
-	public void setVisitDate(Timestamp visitDate) {
+	public void setVisitDate(Date visitDate) {
 		this.visitDate = visitDate;
 	}
 	public Timestamp getRegiDate() {

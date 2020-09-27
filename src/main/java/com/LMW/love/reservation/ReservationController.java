@@ -1,11 +1,19 @@
 package com.LMW.love.reservation;
 
+import java.util.HashMap;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonObjectFormatVisitor;
 
 @Controller
 public class ReservationController {
@@ -15,9 +23,35 @@ public class ReservationController {
 	
 	private ModelAndView mav = new ModelAndView();
 	@RequestMapping(value = "/rescheck", method = RequestMethod.GET)
-	public ModelAndView rescheck() {
-		mav.addObject("reslist",reservationService.reslist(0));
+	public ModelAndView rescheck(HttpServletRequest request) {
+		int nowpage = 1;
+			if(request.getParameter("nowpage")!=null) {
+				nowpage = Integer.parseInt(request.getParameter("nowpage"));
+			}
+		int pagesize = 5 ;
+		int total = reservationService.restotal();
+		int pagefirst =(nowpage-1)* pagesize;
+		int totalpage = total/pagesize +(total%pagesize==0?0:1);
+		int blocksize = 3;
+		int blockfirst = ((nowpage/blocksize)-(nowpage%blocksize==0?1:0))*blocksize+1;
+		int blocklast = blockfirst+ blocksize-1;
+			if(blocklast>totalpage) blocklast=totalpage;
+		
+		HashMap<String,Object> map = new HashMap<String, Object>();
+		map.put("nowpage",nowpage);
+		map.put("blockfirst",blockfirst);
+		map.put("blocklast",blocklast);
+		map.put("totalpage",totalpage);
+		map.put("blocksize",blocksize);
+		mav.addObject("map",map);
+		mav.addObject("reslist",reservationService.reslist(pagefirst));
 		mav.setViewName("rescheck");
+		return mav;
+	}
+	@RequestMapping(value = "/resView", method = RequestMethod.GET)
+	public ModelAndView resView(@RequestParam int num) {
+		mav.addObject("resinfo",reservationService.resinfo(num));
+		mav.setViewName("resView");
 		return mav;
 	}
 	@RequestMapping(value = "/resMod", method = RequestMethod.GET)
@@ -26,6 +60,24 @@ public class ReservationController {
 		mav.addObject("getPoint", reservationService.getPoint());
 		mav.setViewName("resMod");
 		return mav;
+	}
+	@RequestMapping(value = "/resModPro", method = RequestMethod.POST)
+	public ModelAndView resModPro(ReservationVO reservationVO) {
+		reservationService.resModPro(reservationVO);
+		mav.setViewName("redirect:/resView.res?num="+reservationVO.getNum());
+		return mav;
+	}
+	@RequestMapping(value = "/adminMemoSave" , method = RequestMethod.POST)
+	@ResponseBody
+	public void adminMemoSave(@RequestParam int num,
+							  @RequestParam String adminMemo){
+		reservationService.adminMemoSave(adminMemo, num);
+	}
+	@RequestMapping(value = "/stateChage" , method = RequestMethod.POST)
+	@ResponseBody
+	public void stateChage(@RequestParam int num){
+		reservationService.stateChage(num);
+		
 	}
 	
 }

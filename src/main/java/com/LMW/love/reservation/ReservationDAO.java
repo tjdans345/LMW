@@ -1,5 +1,6 @@
 package com.LMW.love.reservation;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -20,5 +21,17 @@ public class ReservationDAO {
 	}
 	public ReservationVO resinfo(int num) {
 		return sqlSession.selectOne("mapper.Reservation.resinfo",num);
+	}
+	public void resModPro (ReservationVO reservationVO) {
+		sqlSession.update("mapper.Reservation.resModPro",reservationVO);
+	}
+	public void adminMemoSave(HashMap map) {
+		sqlSession.update("mapper.Reservation.adminMemoSave",map);
+	}
+	public void stateChage(int num) {
+		sqlSession.update("mapper.Reservation.stateChage",num);
+	}
+	public int restotal() {
+		return sqlSession.selectOne("mapper.Reservation.restotal");
 	}
 }

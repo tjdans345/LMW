@@ -1,5 +1,6 @@
 package com.LMW.love.reservation;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,20 @@ public class ReservationService {
 	}
 	public ReservationVO resinfo(int num) {
 		return reservationDAO.resinfo(num);
+	}
+	public void resModPro(ReservationVO reservationVO) {
+		reservationDAO.resModPro(reservationVO);
+	}
+	public void adminMemoSave(String adminMemo,int num) {
+		HashMap map =new HashMap();
+		map.put("adminMemo",adminMemo);
+		map.put("num",num);
+		reservationDAO.adminMemoSave(map);
+	}
+	public void stateChage(int num) {
+		reservationDAO.stateChage(num);
+	}
+	public int restotal() {
+		return reservationDAO.restotal();
 	}
 }

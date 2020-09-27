@@ -313,7 +313,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Grid With Row Label</h4>
-                                <form action="#">
+                                <form action="${contextPath}/resModPro.res" method="post">
                                     <div class="form-body">
                                         <div class="form-group">
                                             <div class="row">
@@ -376,7 +376,7 @@
                                                 <div class="col-lg-11">
                                                     <div class="row">
                                                         <div class="col-md-11">
-                                                            <input type="date" name="visitDate" class="form-control" value="<f:formatDate value="${resinfo.visitDate}" pattern="yyyy-MM-dd"/>">
+                                                             <input type="date" name="visitDate" class="form-control" value="<f:formatDate value="${resinfo.visitDate}" pattern="yyyy-MM-dd"/>">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -389,7 +389,6 @@
                                                         <div class="col-md-11">
                                                             <select class="form-control" name="consTime">
                                                             <c:forEach begin="9" end="20" var="i">
-                                                            	<option value="i">
 		                                                            <c:choose>
 		                                                            	<c:when test="${i<12}">
 		                                                            		<c:choose>
@@ -422,7 +421,6 @@
 		                                                            		</c:choose>
 		                                                            	</c:otherwise>
 		                                                            </c:choose>
-	                                                            </option>
                                                             </c:forEach>
                                                             </select>
                                                         </div>
@@ -448,10 +446,12 @@
                                                         <div class="col-md-11">
                                                         	<c:choose>
                                                         		<c:when test="${resinfo.state==1}">
-                                                            <input type="text" class="form-control" value="대기중" readonly name="state">
+                                                            <input type="text" class="form-control" value="대기중" readonly>
+                                                            <input type="hidden" name="state" value="1">
                                                         		</c:when>
                                                         		<c:otherwise>
-                                                            <input type="text" class="form-control" value="확인" readonly name="state">
+                                                            <input type="text" class="form-control" value="확인" readonly>
+                                                            <input type="hidden" name="state" value="0">
                                                         		</c:otherwise>
                                                         	</c:choose>
                                                         </div>
