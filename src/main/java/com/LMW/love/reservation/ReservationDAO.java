@@ -31,10 +31,7 @@ public class ReservationDAO {
 	public void stateChage(int num) {
 		sqlSession.update("mapper.Reservation.stateChage",num);
 	}
-	public int restotal() {
-		return sqlSession.selectOne("mapper.Reservation.restotal");
-	}
-	public List sizechange(int pagesize) {
-		return sqlSession.selectList("mapper.Reservation.sizechange",pagesize);
+	public int restotal(HashMap<String,Object> map) {
+		return sqlSession.selectOne("mapper.Reservation.restotal",map);
 	}
 }

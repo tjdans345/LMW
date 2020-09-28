@@ -456,7 +456,14 @@
                               			<div class="col-lg-10">
 	                              			<div class="row">
 	                              				<div class="col-md-12">
-													${resinfo.state}
+												<c:choose>
+                                            		<c:when test="${resinfo.state==1}">
+                                            		<button class="btn waves-effect waves-light btn-outline-danger" onclick="stateChage(${i.num})">대기중</button>
+                                            		</c:when>
+                                            		<c:otherwise>
+                                            		<font color='blue'>확인</font>
+                                            		</c:otherwise>
+                                            	</c:choose>
 	                              				</div>
 	                              			</div>
                               			</div>
