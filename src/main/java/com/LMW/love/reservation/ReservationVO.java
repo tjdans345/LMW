@@ -1,16 +1,37 @@
 package com.LMW.love.reservation;
 
+
+
 import java.sql.Date;
-import java.sql.Time;
+import java.sql.Timestamp;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 @Component
 public class ReservationVO {
-	private int num,state ,point;
-	private String name,tel;
-	private Date VisitDate,RegiDate;
-	private Time ConsTime;
+	private int num,state;
+	private String name,tel,point,consTime,memo,adminMemo;
+	private Timestamp regiDate,ModDate;
+	private Date visitDate;
+	
+	
+	public String getAdminMemo() {
+		return adminMemo;
+	}
+	public void setAdminMemo(String adminMemo) {
+		this.adminMemo = adminMemo;
+	}
+	public Timestamp getModDate() {
+		return ModDate;
+	}
+	public void setModDate(Timestamp modDate) {
+		ModDate = modDate;
+	}
+	public String getMemo() {
+		return memo;
+	}
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
 	public int getNum() {
 		return num;
 	}
@@ -35,31 +56,30 @@ public class ReservationVO {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	public int getPoint() {
+	public String getPoint() {
 		return point;
 	}
-	public void setPoint(int point) {
+	public void setPoint(String point) {
 		this.point = point;
 	}
 	public Date getVisitDate() {
-		return VisitDate;
+		return visitDate;
 	}
 	public void setVisitDate(Date visitDate) {
-		VisitDate = visitDate;
+		this.visitDate = visitDate;
 	}
-	public Date getRegiDate() {
-		return RegiDate;
+	public Timestamp getRegiDate() {
+		return regiDate;
 	}
-	public void setRegiDate(Date regiDate) {
-		RegiDate = regiDate;
+	public void setRegiDate(Timestamp regiDate) {
+		this.regiDate = regiDate;
 	}
-	public Time getConsTime() {
-		return ConsTime;
+	public String getConsTime() {
+		return consTime;
 	}
-	public void setConsTime(Time consTime) {
-		ConsTime = consTime;
+	public void setConsTime(String consTime) {
+		this.consTime = consTime;
 	}
-	
-	
+
 
 }
