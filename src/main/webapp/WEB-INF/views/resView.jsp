@@ -3,7 +3,7 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />    
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />        
     
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -19,10 +19,6 @@
     <link rel="icon" type="image/png" sizes="16x16" href="${contextPath}/resources/assets/images/favicon.png">
     <title>Adminmart Template - The Ultimate Multipurpose admin template</title>
     <!-- Custom CSS -->
-    <link href="${contextPath}/resources/assets/extra-libs/c3/c3.min.css" rel="stylesheet">
-    <link href="${contextPath}/resources/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
-    <link href="${contextPath}/resources/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
-    <!-- Custom CSS -->
     <link href="${contextPath}/resources/dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,62 +27,21 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 <script type="text/javascript">
-function stateChage(num) {
-	if(confirm("변경 하시겠습니까 ?")){
-		$.ajax({
-			url:"stateChage.res",
-			type:"POST",
-			data:{"num":num},
-			success:function(){
-				alert("변경되었습니다.");
-				document.getElementById(num).innerHTML="<font color='blue'>확인</font>"
-			},
-			error:function(){
-				alert("변경 실패");
-			}
-		})
-		
-		
-	}else{
-		alert("취소되었습니다.");
+	function MemoSave() {
+ 		var adminMemo = $('#adminMemo').val();
+ 		var num = ${resinfo.num}
+ 		$.ajax({
+ 			url:"adminMemoSave.res",
+ 			type:"POST",
+ 			data:{"num" : num , "adminMemo" : adminMemo},
+ 			success:function(){
+ 				window.alert("저장되었습니다 .");
+ 			},
+ 			error:function(){
+ 				window.alert("저장에 실패했습니다 .");
+ 			}
+ 		});
 	}
-}
-
-function sizechange() {
-	var pagesize = $("#sizecheck").val();
-	$.ajax({
-		url:"${contextPath}/sizechange.res",
-		type:"GET",
-		data:{"pagesize":pagesize},
-		dataType:"json",
-		success:function(data){
-			$("#listbody").empty();
-			var bodycode = "";
-			for (var i = 0; i < data.length; i++) {
-				bodycode +="<tr><th>"+data[i].num+"</th>";
-				bodycode +="<th><a href='${contextPath}/resView.res?num="+data[i].num+"'>"+data[i].name+"</th>";
-				bodycode +="<th>"+data[i].tel+"</th>";			
-				bodycode +="<th>"+data[i].point+"</th>";
-				bodycode +="<td>"+data[i].visitDate+"</td>";
-				if(data[i].consTime<12) bodycode +="<td>오전"+data[i].conTime+"시</td>";
-				if(data[i].consTime=12) bodycode +="<td>오후"+data[i].conTime+"시</td>";
-				if(data[i].consTime>12) bodycode +="<td>오후"+data[i].conTime-12+"시</td>";
-				bodycode +="<td>"+data[i].regiDate+"</td>";
-				bodycode +="<td id="+data[i].num+">";
-				if(data[i].state==1){
-					bodycode += "<button class=\"btn waves-effect waves-light btn-outline-danger\" onclick=\"stateChage("+data[i].num+")\">대기중</button>";
-				}else{
-					bodycode +="<font color='blue'>확인</font>";
-				}
-				bodycode +="</td></tr>";
-			}
-			$("#listbody").append(bodycode);
-		},
-		error:function(){
-			alert("오류가 있습니다 . ");
-		}
-	});
-}
 </script>
 </head>
 
@@ -103,8 +58,7 @@ function sizechange() {
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
-    <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-        data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
+    <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
@@ -326,12 +280,8 @@ function sizechange() {
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
-        
-          <!-- 사이드바 -->
-        <jsp:include page="./inc/sidebar.jsp" />
-         <!-- 사이드바 -->
-         
-        <!-- ============================================================== -->
+        <jsp:include page="./inc/sidebar.jsp"/>
+                <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
@@ -341,17 +291,11 @@ function sizechange() {
             <!-- ============================================================== -->
             <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
-             <div class="page-breadcrumb">
+            <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-7 align-self-center">
-                        <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Good Morning Jason!</h3>
+                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">예약관리</h4>
                         <div class="d-flex align-items-center">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb m-0 p-0">
-                                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a>
-                                    </li>
-                                </ol>
-                            </nav>
                         </div>
                     </div>
                     <div class="col-5 align-self-center">
@@ -365,165 +309,166 @@ function sizechange() {
                     </div>
                 </div>
             </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            <div class="container-fluid">
-                <!-- *************************************************************** -->
-                <!-- Start First Cards -->
-                <!-- *************************************************************** -->
-                <div class="card-group">
-                  
-                  <!-- 테이블 -->
-                  <div class="col-12">
+             <div class="row">
+                    <div class="col-sm-12 col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">예약하기</h4>
-                                <h6 class="card-title mt-5"><i
-                                        class="mr-1 font-18 mdi mdi-numeric-1-box-multiple-outline"></i> Table With
-                                    Outside Padding</h6>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                        	<tr>
-                                                <th scope="col">
-													<label>Show
-													<select class="form-control form-control-sm" name="pagesize" id="sizecheck" onchange="sizechange()">
-														<c:choose>
-															<c:when test="${map.nowpage==3}">
-																<option selected>3</option>
-															</c:when>
-															<c:otherwise>
-																<option>3</option>
-															</c:otherwise>
-														</c:choose>
-														<c:choose>
-															<c:when test="${map.nowpage==5}">
-																<option selected>5</option>
-															</c:when>
-															<c:otherwise>
-																<option>5</option>
-															</c:otherwise>
-														</c:choose>
-														<c:choose>
-															<c:when test="${map.nowpage==10}">
-																<option selected>10</option>
-															</c:when>
-															<c:otherwise>
-																<option>10</option>
-															</c:otherwise>
-														</c:choose>
-													</select>
-													</label>
-												</th>
-                                                <th scope="col">검색</th>
-                                                <th scope="col"></th>
-                                                <th scope="col">지점</th>
-                                                <th scope="col"></th>
-                                                <th scope="col"></th>
-                                                <th scope="col"></th>
-                                                <th scope="col"></th>
-                                            </tr>
-                                            <tr>
-                                                <th scope="col">번호</th>
-                                                <th scope="col">이름</th>
-                                                <th scope="col">연락처</th>
-                                                <th scope="col">지점</th>
-                                                <th scope="col">방문날짜</th>
-                                                <th scope="col">상담시간</th>
-                                                <th scope="col">등록일</th>
-                                                <th scope="col">상태</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="listbody">
-                                            <c:forEach items="${reslist}" var="i">
-                                            <tr>
-                                            	<th>${i.num}</th>
-                                           	<td><a href="${contextPath}/resView.res?num=${i.num}">${i.name}</a></td>
-                                            	<td>${i.tel}</td>
-                                            	<td>${i.point}</td>
-                                            	<td><f:formatDate value="${i.visitDate}" pattern="yyyy-MM-dd"/></td>
-                                            	<td>
-                                            		<c:choose>
-                                            			<c:when test="${i.consTime<12}">
-                                            			오전 ${i.consTime} 시
-                                            			</c:when>
-                                            			<c:when test="${i.consTime==12}">
-                                            			오후 ${i.consTime} 시
-                                            			</c:when>
-                                            			<c:otherwise>
-                                            			오후 ${i.consTime-12} 시
-                                            			</c:otherwise>
-                                            		</c:choose>
-                                            	</td>
-                                            	<td><f:formatDate value="${i.regiDate}" pattern="yyyy-MM-dd"/></td>
-                                            	<td id="${i.num}">
-                                            	<c:choose>
-                                            		<c:when test="${i.state==1}">
-                                            		<button class="btn waves-effect waves-light btn-outline-danger" onclick="stateChage(${i.num})">대기중</button>
-                                            		</c:when>
-                                            		<c:otherwise>
-                                            		<font color='blue'>확인</font>
-                                            		</c:otherwise>
-                                            	</c:choose>
-                                            	</td>
-                                            </tr>
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
-                             
+                              <div class="form-body">
+                              	<div class="form-group">
+                              		<div class="row">
+                              			<label class="col-lg-2">번호</label>
+                              			<div class="col-lg-10">
+	                              			<div class="row">
+	                              				<div class="col-md-12">
+													${resinfo.num}
+	                              				</div>
+	                              			</div>
+                              			</div>
+                              		</div>
+                              	</div>
+                             	<div class="form-group">
+                              		<div class="row">
+                              			<label class="col-lg-2">이름</label>
+                              			<div class="col-lg-10">
+	                              			<div class="row">
+	                              				<div class="col-md-12">
+	                              					${resinfo.name}
+	                              				</div>
+	                              			</div>
+                              			</div>
+                              		</div>
+                              	</div>                             	<div class="form-group">
+                              		<div class="row">
+                              			<label class="col-lg-2">연락처</label>
+                              			<div class="col-lg-10">
+	                              			<div class="row">
+	                              				<div class="col-md-12">
+	                              					${resinfo.tel}
+	                              				</div>
+	                              			</div>
+                              			</div>
+                              		</div>
+                              	</div>                             	<div class="form-group">
+                              		<div class="row">
+                              			<label class="col-lg-2">지점</label>
+                              			<div class="col-lg-10">
+	                              			<div class="row">
+	                              				<div class="col-md-12">
+	                              					${resinfo.point}
+	                              				</div>
+	                              			</div>
+                              			</div>
+                              		</div>
+                              	</div>                           	<div class="form-group">
+                              		<div class="row">
+                              			<label class="col-lg-2">방문날짜</label>
+                              			<div class="col-lg-10">
+	                              			<div class="row">
+	                              				<div class="col-md-12">
+	                              					${resinfo.visitDate}
+	                              				</div>
+	                              			</div>
+                              			</div>
+                              		</div>
+                              	</div>                             	<div class="form-group">
+                              		<div class="row">
+                              			<label class="col-lg-2">상담시간</label>
+                              			<div class="col-lg-10">
+	                              			<div class="row">
+	                              				<div class="col-md-12">
+	                              					${resinfo.consTime}
+	                              				</div>
+	                              			</div>
+                              			</div>
+                              		</div>
+                              	</div>                             	<div class="form-group">
+                              		<div class="row">
+                              			<label class="col-lg-2">남기실 말씀</label>
+                              			<div class="col-lg-10">
+	                              			<div class="row">
+	                              				<div class="col-md-12">
+	                              					${resinfo.memo}
+	                              				</div>
+	                              			</div>
+                              			</div>
+                              		</div>
+                              	</div>
+                              </div>
                             </div>
-                            
                         </div>
                     </div>
-                    <div class="col-lg-4 mb-4">
-                    </div>
-                    <div class="col-lg-4 mb-4">
-                                        <nav aria-label="Page navigation example">
-                                            <ul class="pagination">
-                                                        <c:if test="${map.nowpage>map.blocksize}">
-                                                        <li class="page-item">
-                                                    <a class="page-link" href="${contextPath}/rescheck.res?nowpage=${map.blockfirst-1}"
-                                                        aria-label="Previous">        
-                                                        <span aria-hidden="true">&laquo;</span>
-                                                        <span class="sr-only">Previous</span>
-                                                    </a>
-                                                </li>
-                                                        </c:if>
-                                                        
-                                                 <c:forEach begin="${map.blockfirst}" end="${pagesize}" var="i">
-                                                <li class="page-item"><a class="page-link"
-                                                        href="${contextPath}/rescheck.res?nowpage=${i}">${i}</a></li>
-                                                 </c:forEach>       
-                                                
-                                                <c:if test="${map.totalpage!=map.blocklast}">
-	                                                <li class="page-item">
-	                                                    <a class="page-link" href="${contextPath}/rescheck.res?nowpage=${map.blocklast+1}" aria-label="Next">
-	                                                        <span aria-hidden="true">&raquo;</span>
-	                                                        <span class="sr-only">Next</span>
-	                                                    </a>
-	                                                </li>
-                                                </c:if>
-                                            </ul>
-                                        </nav>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">관리자 메모</h4>
+                                <form action="${contextPath}/resMod.res" method="get">
+                                    <div class="form-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <textarea class="form-control" rows="6" style="resize: none;" id="adminMemo" id="adminMemo">${resinfo.adminMemo}</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                    
-                    
-                    
-                    
-                    <!-- 테이블 -->
+                                    <div class="form-actions">
+                                        <div class="text-right">
+                                            <button type="button" class="btn btn-info" onclick="MemoSave()">메모 저장하기</button>
+                                            <button type="submit" class="btn btn-info">수정하기</button>
+                                            <input type="hidden" name="num" value="${resinfo.num}">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
+                 <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                              <div class="form-body">
+                              	<div class="form-group">
+                              		<div class="row">
+                              			<label class="col-lg-2">등록일</label>
+                              			<div class="col-lg-10">
+	                              			<div class="row">
+	                              				<div class="col-md-12">
+													${resinfo.regiDate}
+	                              				</div>
+	                              			</div>
+                              			</div>
+                              		</div>
+                              	</div>
+                               		<div class="row">
+                              			<label class="col-lg-2">수정일</label>
+                              			<div class="col-lg-10">
+	                              			<div class="row">
+	                              				<div class="col-md-12">
+													${resinfo.modDate}
+	                              				</div>
+	                              			</div>
+                              			</div>
+                              		</div>
+                              	</div>
+                               		<div class="row">
+                              			<label class="col-lg-2">상태</label>
+                              			<div class="col-lg-10">
+	                              			<div class="row">
+	                              				<div class="col-md-12">
+													${resinfo.state}
+	                              				</div>
+	                              			</div>
+                              			</div>
+                              		</div>
+                              	</div>
+                              	
+                              	</div>
+                             </div>
+                             
+                          </div>
+                   </div>
+            <div class="container-fluid">
             <footer class="footer text-center text-muted">
                 All Rights Reserved by Adminmart. Designed and Developed by <a
                     href="https://wrappixel.com">WrapPixel</a>.
@@ -544,24 +489,22 @@ function sizechange() {
     <!-- All Jquery -->
     <!-- ============================================================== -->
     <script src="${contextPath}/resources/assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
     <script src="${contextPath}/resources/assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="${contextPath}/resources/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- apps -->
     <!-- apps -->
     <script src="${contextPath}/resources/dist/js/app-style-switcher.js"></script>
     <script src="${contextPath}/resources/dist/js/feather.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
     <script src="${contextPath}/resources/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="${contextPath}/resources/assets/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
+    <!-- themejs -->
+    <!--Menu sidebar -->
     <script src="${contextPath}/resources/dist/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="${contextPath}/resources/dist/js/custom.min.js"></script>
-    <!--This page JavaScript -->
-    <script src="${contextPath}/resources/assets/extra-libs/c3/d3.min.js"></script>
-    <script src="${contextPath}/resources/assets/extra-libs/c3/c3.min.js"></script>
-    <script src="${contextPath}/resources/assets/libs/chartist/dist/chartist.min.js"></script>
-    <script src="${contextPath}/resources/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-    <script src="${contextPath}/resources/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
-    <script src="${contextPath}/resources/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
-    <script src="${contextPath}/resources/dist/js/pages/dashboards/dashboard1.min.js"></script>
 </body>
 
 </html>

@@ -12,13 +12,27 @@
     		<result property="visitDate" column="VisitDate" />
     		<result property="regiDate" column="RegiDate" />
     		<result property="consTime" column="ConsTime" />
+    		<result property="adminMemo" column="adminMemo"/>
+    		<result property="ModDate" column="ModDate"/>
     	</resultMap>
-    	
-    	<select id="reslist" resultMap="ReservationResult" >
+    	<select id="restotal" resultType="int">
+    		<![CDATA[
+    			select count(num) from reservation
+    		]]>
+    		
+    	</select>
+    	<select id="sizechange" resultMap="ReservationResult" parameterType="int">
     		<![CDATA[
     			select r.num,r.name,r.tel,p.pointName point,r.VisitDate,r.ConsTime,r.RegiDate,
-    			r.state from reservation r join point p on r.point = p.num
-    			limit 0,10;
+    			r.state from reservation r join point p on r.point = p.num order by r.num desc
+    			limit 0,#{pagesize};
+    		]]>
+    	</select>
+    	<select id="reslist" resultMap="ReservationResult" parameterType="hashmap">
+    		<![CDATA[
+    			select r.num,r.name,r.tel,p.pointName point,r.VisitDate,r.ConsTime,r.RegiDate,
+    			r.state from reservation r join point p on r.point = p.num order by r.num desc
+    			limit #{pagefirst},#{pagesize};
     		]]>
     	</select>
     	<select id="resinfo" parameterType="int" resultType="reservationVO">
@@ -26,4 +40,22 @@
     			select * from reservation where num=#{num}
     		]]>
     	</select>
+    	<update id="resModPro" parameterType="reservationVO">
+    		<![CDATA[
+    			update reservation set name=#{name} , tel=#{tel},
+    			point=#{point} , VisitDate=#{visitDate} , ConsTime = #{consTime},
+    			RegiDate=#{regiDate} , memo=#{memo} where num=#{num}
+    			
+    		]]>
+    	</update>
+    	<update id="adminMemoSave" parameterType="hashmap">
+    		<![CDATA[
+    			update reservation set adminMemo=#{adminMemo},ModDate=now() where num=#{num}
+    		]]>
+    	</update>
+    	<update id="stateChage" parameterType="int">
+    		<![CDATA[
+    			update reservation set state=2 where num=#{num}
+    		]]>
+    	</update>
    </mapper>
