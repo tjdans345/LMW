@@ -1,8 +1,10 @@
 package com.LMW.love.reservation;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +30,8 @@ public class ReservationController {
 			if(request.getParameter("nowpage")!=null) {
 				nowpage = Integer.parseInt(request.getParameter("nowpage"));
 			}
-		int pagesize = 5 ;
+		int pagesize = 3;
+			if(request.getParameter("pagesize")!=null) pagesize=Integer.parseInt(request.getParameter("pagesize"));
 		int total = reservationService.restotal();
 		int pagefirst =(nowpage-1)* pagesize;
 		int totalpage = total/pagesize +(total%pagesize==0?0:1);
@@ -43,10 +46,33 @@ public class ReservationController {
 		map.put("blocklast",blocklast);
 		map.put("totalpage",totalpage);
 		map.put("blocksize",blocksize);
+		map.put("pagefirst",pagefirst);
+		map.put("pagesize",pagesize);
 		mav.addObject("map",map);
-		mav.addObject("reslist",reservationService.reslist(pagefirst));
+		mav.addObject("reslist",reservationService.reslist(map));
 		mav.setViewName("rescheck");
 		return mav;
+	}
+	@RequestMapping(value = "/sizechange", method = RequestMethod.GET)
+	@ResponseBody
+	public void sizechange(@RequestParam int pagesize,
+						   HttpServletResponse response)throws Exception {
+		List<ReservationVO> list = reservationService.sizechange(pagesize);
+		String json ="[";
+		for(int i = 0 ; i <list.size();i++) {
+			ReservationVO vo = list.get(i);
+			if(i!=0) json += ",";
+			json += "{\"num\":\""+vo.getNum()+"\","; 
+			json += "\"name\":\""+vo.getName()+"\","; 
+			json += "\"tel\":\""+vo.getTel()+"\","; 
+			json += "\"point\":\""+vo.getPoint()+"\","; 
+			json += "\"visitDate\":\""+vo.getVisitDate()+"\","; 
+			json += "\"consTime\":\""+vo.getConsTime()+"\","; 
+			json += "\"regiDate\":\""+vo.getRegiDate()+"\","; 
+			json += "\"state\":\""+vo.getState()+"\"}"; 
+		}
+		json+="]";
+		response.getWriter().print(json);
 	}
 	@RequestMapping(value = "/resView", method = RequestMethod.GET)
 	public ModelAndView resView(@RequestParam int num) {

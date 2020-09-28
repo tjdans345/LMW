@@ -21,11 +21,18 @@
     		]]>
     		
     	</select>
-    	<select id="reslist" resultMap="ReservationResult" parameterType="int">
+    	<select id="sizechange" resultMap="ReservationResult" parameterType="int">
     		<![CDATA[
     			select r.num,r.name,r.tel,p.pointName point,r.VisitDate,r.ConsTime,r.RegiDate,
     			r.state from reservation r join point p on r.point = p.num order by r.num desc
-    			limit #{pagefirst},5;
+    			limit 0,#{pagesize};
+    		]]>
+    	</select>
+    	<select id="reslist" resultMap="ReservationResult" parameterType="hashmap">
+    		<![CDATA[
+    			select r.num,r.name,r.tel,p.pointName point,r.VisitDate,r.ConsTime,r.RegiDate,
+    			r.state from reservation r join point p on r.point = p.num order by r.num desc
+    			limit #{pagefirst},#{pagesize};
     		]]>
     	</select>
     	<select id="resinfo" parameterType="int" resultType="reservationVO">

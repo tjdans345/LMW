@@ -48,7 +48,44 @@ function stateChage(num) {
 		
 		
 	}else{
+		alert("취소되었습니다.");
 	}
+}
+
+function sizechange() {
+	var pagesize = $("#sizecheck").val();
+	$.ajax({
+		url:"${contextPath}/sizechange.res",
+		type:"GET",
+		data:{"pagesize":pagesize},
+		dataType:"json",
+		success:function(data){
+			$("#listbody").empty();
+			var bodycode = "";
+			for (var i = 0; i < data.length; i++) {
+				bodycode +="<tr><th>"+data[i].num+"</th>";
+				bodycode +="<th><a href='${contextPath}/resView.res?num="+data[i].num+"'>"+data[i].name+"</th>";
+				bodycode +="<th>"+data[i].tel+"</th>";			
+				bodycode +="<th>"+data[i].point+"</th>";
+				bodycode +="<td>"+data[i].visitDate+"</td>";
+				if(data[i].consTime<12) bodycode +="<td>오전"+data[i].conTime+"시</td>";
+				if(data[i].consTime=12) bodycode +="<td>오후"+data[i].conTime+"시</td>";
+				if(data[i].consTime>12) bodycode +="<td>오후"+data[i].conTime-12+"시</td>";
+				bodycode +="<td>"+data[i].regiDate+"</td>";
+				bodycode +="<td id="+data[i].num+">";
+				if(data[i].state==1){
+					bodycode += "<button class=\"btn waves-effect waves-light btn-outline-danger\" onclick=\"stateChage("+data[i].num+")\">대기중</button>";
+				}else{
+					bodycode +="<font color='blue'>확인</font>";
+				}
+				bodycode +="</td></tr>";
+			}
+			$("#listbody").append(bodycode);
+		},
+		error:function(){
+			alert("오류가 있습니다 . ");
+		}
+	});
 }
 </script>
 </head>
@@ -351,6 +388,45 @@ function stateChage(num) {
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
+                                        	<tr>
+                                                <th scope="col">
+													<label>Show
+													<select class="form-control form-control-sm" name="pagesize" id="sizecheck" onchange="sizechange()">
+														<c:choose>
+															<c:when test="${map.nowpage==3}">
+																<option selected>3</option>
+															</c:when>
+															<c:otherwise>
+																<option>3</option>
+															</c:otherwise>
+														</c:choose>
+														<c:choose>
+															<c:when test="${map.nowpage==5}">
+																<option selected>5</option>
+															</c:when>
+															<c:otherwise>
+																<option>5</option>
+															</c:otherwise>
+														</c:choose>
+														<c:choose>
+															<c:when test="${map.nowpage==10}">
+																<option selected>10</option>
+															</c:when>
+															<c:otherwise>
+																<option>10</option>
+															</c:otherwise>
+														</c:choose>
+													</select>
+													</label>
+												</th>
+                                                <th scope="col">검색</th>
+                                                <th scope="col"></th>
+                                                <th scope="col">지점</th>
+                                                <th scope="col"></th>
+                                                <th scope="col"></th>
+                                                <th scope="col"></th>
+                                                <th scope="col"></th>
+                                            </tr>
                                             <tr>
                                                 <th scope="col">번호</th>
                                                 <th scope="col">이름</th>
@@ -362,11 +438,11 @@ function stateChage(num) {
                                                 <th scope="col">상태</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="listbody">
                                             <c:forEach items="${reslist}" var="i">
                                             <tr>
                                             	<th>${i.num}</th>
-                                            	<td><a href="${contextPath}/resView.res?num=${i.num}">${i.name}</a></td>
+                                           	<td><a href="${contextPath}/resView.res?num=${i.num}">${i.name}</a></td>
                                             	<td>${i.tel}</td>
                                             	<td>${i.point}</td>
                                             	<td><f:formatDate value="${i.visitDate}" pattern="yyyy-MM-dd"/></td>
@@ -419,7 +495,7 @@ function stateChage(num) {
                                                 </li>
                                                         </c:if>
                                                         
-                                                 <c:forEach begin="${map.blockfirst}" end="${map.blocklast}" var="i">
+                                                 <c:forEach begin="${map.blockfirst}" end="${pagesize}" var="i">
                                                 <li class="page-item"><a class="page-link"
                                                         href="${contextPath}/rescheck.res?nowpage=${i}">${i}</a></li>
                                                  </c:forEach>       

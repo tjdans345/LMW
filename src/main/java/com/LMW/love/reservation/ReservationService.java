@@ -12,9 +12,9 @@ public class ReservationService {
 	@Autowired
 	private ReservationDAO reservationDAO;
 	
-	public List reslist(int pagefirst) {
+	public List reslist(HashMap<String,Object> map) {
 		
-		return reservationDAO.reslist(pagefirst);
+		return reservationDAO.reslist(map);
 	}
 	public List getPoint() {
 		return reservationDAO.getPoint();
@@ -36,5 +36,8 @@ public class ReservationService {
 	}
 	public int restotal() {
 		return reservationDAO.restotal();
+	}
+	public List sizechange(int pagesize) {
+		return reservationDAO.sizechange(pagesize);
 	}
 }

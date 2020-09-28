@@ -13,8 +13,8 @@ public class ReservationDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List reslist(int pagefirst){
-		 return sqlSession.selectList("mapper.Reservation.reslist",pagefirst);
+	public List reslist(HashMap<String,Object> map){
+		 return sqlSession.selectList("mapper.Reservation.reslist",map);
 	}
 	public List getPoint() {
 		return sqlSession.selectList("mapper.Point.getPoint");
@@ -33,5 +33,8 @@ public class ReservationDAO {
 	}
 	public int restotal() {
 		return sqlSession.selectOne("mapper.Reservation.restotal");
+	}
+	public List sizechange(int pagesize) {
+		return sqlSession.selectList("mapper.Reservation.sizechange",pagesize);
 	}
 }
