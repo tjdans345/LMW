@@ -27,7 +27,7 @@
  	
  	
  <style type="text/css">
- #no-btn {
+ .no-btn {
  	background-color: #ffffff;
  	border-color: #ea0000;
  	color: #ea0000;
@@ -35,7 +35,7 @@
  	
  }
  
- #no-btn:hover {
+ .no-btn:hover {
 	background-color: #f50000;
 	color: #ffffff;
 }
@@ -46,40 +46,53 @@
  <script type="text/javascript">
  
  $(document).ready(function() {
- 
-
- $(".yes-btn").click(function() {
 	 
+	//출력상태 안함 클릭 시 state값 1로 변경
+ $(".yes-btn").click(function() {
+	if(confirm("출력하시겠습니까?") == true) {
 	 var state = $(".yes-btn").val();
 	 var num = $(this).data("num");
-	 alert("안녕하세요 yes버튼입니다.zzz?" + state + num);
 	 $.ajax({
 		url:"yes.poi",
 		type:"post",
 		data: {"state" : state, "num" : num},
 		dataType : "json",
 		success:function(data) {
-			alert("통신 성공");
+				$(".yes-btn"+num).hide();
+				$(".no-btn"+num).show();
 		},
 		error:function(data){
 			alert("통신 실패");
 		}
-	 });
+	  });
+	 } else {
+		 return;
+	 }
 	});
-
+	
+ //출력상태 안함 클릭 시 state값 0으로 변경
  $(".no-btn").click(function() {
-
-	 alert("안녕하세요 no버튼입니다.?");
-	 
-	 
+	 if(confirm("출력 취소 하시겠습니까?") == true) {
+	 var state = $(".no-btn").val();
+	 var num = $(this).data("num");
+	 $.ajax({
+			url:"yes.poi",
+			type:"post",
+			data: {"state" : state, "num" : num},
+			dataType : "json",
+			success:function(data) {
+				 	$(".yes-btn"+num).show();
+					$(".no-btn"+num).hide();
+			},
+			error:function(data){
+				alert("통신 실패");
+			}
+		 });
+	 }else {
+		 return;
+	 }
 	});
- 
- 
- 
- 
  });
- 
- 
  </script>
  
 </head>
@@ -361,19 +374,21 @@
                                             <tr align="center" style="text-align: center;">
                                                 <th scope="row" width="100">${list.num}</th>
                                                 <td width="700" >${list.pointName}</td>
-                                                <c:if test="${list.state == 1}">
-                                                <td width="300" >
-                                                <button type="button" class="btn waves-effect waves-light btn-outline-info yes-btn" style="font-size: 0.9rem;" value="0" data-num="${list.num}">출력</button>
-                                                </td>
-                                                </c:if>
+                                                
+                                                <td width="300" class="a-btn" id="${list.num}">
                                                 <c:if test="${list.state == 0}">
-                                                <td width="300" >
-                                                <button type="button" class="btn waves-effect waves-light btn-danger no-btn" data-num="${list.num}" value="1">안함</button>
-                                                </td>
+                                                	<button type="button" class="btn waves-effect waves-light btn-outline-info yes-btn yes-btn${list.num}" style="font-size: 0.9rem;" value="1" data-num="${list.num}">출력</button>
+													<button type="button" class="btn waves-effect waves-light btn-danger no-btn no-btn${list.num}" data-num="${list.num}" value="0" style="display: none;">안함</button>
+												</c:if>	                                                
+                                                <c:if test="${list.state == 1}">
+                                                	<button type="button" class="btn waves-effect waves-light btn-danger no-btn no-btn${list.num}" data-num="${list.num}" value="0">안함</button>
+                                                	<button type="button" class="btn waves-effect waves-light btn-outline-info yes-btn yes-btn${list.num}" style="font-size: 0.9rem; display: none;" value="1" data-num="${list.num}">출력</button>
                                                 </c:if>
+                                                </td>
+                                              
                                                 
                                                 <td width="300" >
-													<button type="button" class="btn waves-effect waves-light btn-warning" style="font-size: 0.9rem;">수정ㅋ</button>
+													<button type="button" class="btn waves-effect waves-light btn-warning" style="font-size: 0.9rem;">수정</button>
 													<button type="button" class="btn waves-effect waves-light btn-danger" style="font-size: 0.9rem;">삭제</button>
 													
 												</td>
