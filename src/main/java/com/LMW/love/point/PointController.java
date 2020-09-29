@@ -32,10 +32,10 @@ public class PointController {
 		return mav;
 	}
 	//출력 상태 변경 메소드
-
 	@RequestMapping(value = "/yes", method = RequestMethod.POST)
 	@ResponseBody
 	public void changeState(@RequestParam String state, int num, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
 		response.getWriter().println(pointService.changeState(num, state)); 
 	}
 		//지점관리 메인페이지 이동

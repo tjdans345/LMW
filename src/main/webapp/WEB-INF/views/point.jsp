@@ -159,16 +159,16 @@
 								str += "<td width='700'>"+pointname+"</td>";
 								str += "<td width='300' class='a-btn' id='"+num+"'>";
 								if(state == 1) {
-									str += "<button type='button' class='btn waves-effect waves-light btn-outline-info yes-btn yes-btn"+num+"' style='font-size: 0.9rem;' value='1' data-num='"+num+"'>출력</button>";
-									str += "<button type='button' class='btn waves-effect waves-light btn-danger no-btn no-btn"+num+"' data-num='"+num+"' value='0' style='display: none;'>안함</button>";
+									str += "<button type='button' class='btn waves-effect waves-light btn-outline-info yes-btn yes-btn"+num+"' style='font-size: 0.9rem;' value='0' data-num='"+num+"'>출력</button>";
+									str += "<button type='button' class='btn waves-effect waves-light btn-danger no-btn no-btn"+num+"' data-num='"+num+"' value='1' style='display: none;'>안함</button>";
 								} else if(state == 0) {
-									str += "<button type='button' class='btn waves-effect waves-light btn-danger no-btn no-btn"+num+"' data-num='"+num+"' value='0'>안함</button>"; 
-									str += "<button type='button' class='btn waves-effect waves-light btn-outline-info yes-btn yes-btn"+num+"' style='font-size: 0.9rem; display: none;' value='1' data-num='"+num+"'>출력</button>";
+									str += "<button type='button' class='btn waves-effect waves-light btn-danger no-btn no-btn"+num+"' data-num='"+num+"' value='1'>안함</button>"; 
+									str += "<button type='button' class='btn waves-effect waves-light btn-outline-info yes-btn yes-btn"+num+"' style='font-size: 0.9rem; display: none;' value='0' data-num='"+num+"'>출력</button>";
 								}
 									str += "</td>"
 									str += "<td width='300'>";
-									str += "<button type='button' class='btn waves-effect waves-light btn-warning' style='font-size: 0.9rem;'>수정</button>";
-									str += "<button type='button' class='btn waves-effect waves-light btn-danger btn-del' style='font-size: 0.9rem;' data-num='"+num+"'>삭제</button>"
+									str += "<button type='button' class='btn waves-effect waves-light btn-warning' style='font-size: 0.9rem;'>수정</button> \r";
+									str += "<button type='button' class='btn waves-effect waves-light btn-danger btn-del' style='font-size: 0.9rem;' data-num='"+num+"'>삭제z</button>"
 									str += "</td>"
 									str += "</tr>"
 							});
@@ -182,9 +182,6 @@
 						return;
 					}
 				});
-				
-				
-				
 			});
 			
 			
@@ -476,19 +473,19 @@
 													<c:if test="${list.state == 1}">
 															<button type="button"
 																class="btn waves-effect waves-light btn-outline-info yes-btn yes-btn${list.num}"
-																style="font-size: 0.9rem;" value="1"
+																style="font-size: 0.9rem;" value="0"
 																data-num="${list.num}">출력</button>
 															<button type="button"
 																class="btn waves-effect waves-light btn-danger no-btn no-btn${list.num}"
-																data-num="${list.num}" value="0" style="display: none;">안함</button>
+																data-num="${list.num}" value="1" style="display: none;">안함</button>
 														</c:if> 
 													<c:if test="${list.state == 0}">
 															<button type="button"
 																class="btn waves-effect waves-light btn-danger no-btn no-btn${list.num}"
-																data-num="${list.num}" value="0">안함</button>
+																data-num="${list.num}" value="1">안함</button>
 															<button type="button"
 																class="btn waves-effect waves-light btn-outline-info yes-btn yes-btn${list.num}"
-																style="font-size: 0.9rem; display: none;" value="1"
+																style="font-size: 0.9rem; display: none;" value="0"
 																data-num="${list.num}">출력</button>
 														</c:if></td>
 
