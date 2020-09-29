@@ -33,6 +33,26 @@ public class PointDAO {
 	public PointVO changeList(int num) {
 		return sqlSession.selectOne("mapper.Point.changeList", num);
 	}
+
+	public String addPoint(String pName) {
+		String msg = "";
+		
+		int insertresult = sqlSession.insert("mapper.Point.addPoint", pName);
+		
+		if(insertresult == 1) {
+			msg = "등록 완료";
+		}else {
+			msg = "등록 실패";
+		}
+		return msg;
+	}
+
+	//지점 삭제 메소드
+	public int deltePoint(int num) {
+		
+		return sqlSession.delete("mapper.Point.deletePoint", num);
+		
+	}
 	
 	
 	
