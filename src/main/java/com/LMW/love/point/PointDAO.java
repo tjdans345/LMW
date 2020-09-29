@@ -1,5 +1,6 @@
 package com.LMW.love.point;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -11,9 +12,37 @@ public class PointDAO {
 	
 	@Autowired
 	private SqlSession sqlSession;
-
+	
+	//지점 리스트 DB 출력
 	public List<PointVO> allList() {
-		
 		return sqlSession.selectList("mapper.Point.allList");
 	}
+
+	//지점 상태 변경
+	public int changeState(int num, String state) {
+		
+		HashMap map = new HashMap();
+		map.put("num", num);
+		map.put("state", state);
+		
+		return sqlSession.update("mapper.Point.changeState", map);
+		
+	}
+	
+	//상태 변경 후 리스트 출력
+	public PointVO changeList(int num) {
+		return sqlSession.selectOne("mapper.Point.changeList", num);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

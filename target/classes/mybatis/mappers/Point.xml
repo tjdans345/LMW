@@ -8,15 +8,36 @@
     		<result property="num" column="num" />
     		<result property="pointName" column="PointName" />
    </resultMap>
+   
 		<select id="getPoint" resultMap="PointResult">
 			<![CDATA[
 				select * from point where state=1
 			]]>
 		</select>
+		
 	<!-- 지점관리 모든 리스트 조회 -->
 	<select id="allList" resultMap="PointResult">
 		<![CDATA[
 		select * from Point
 		]]>
 	</select>
+	
+	<!-- 지점 출력 상태 변경 -->
+	<update id="changeState" parameterType="java.util.HashMap" >
+		<![CDATA[
+		update Point set state = #{state} where num = #{num}
+		]]>
+	</update>
+	
+	<!-- 출력 상태 변경 후 리스트 조회 -->
+	<select id="changeList" resultType="PointVO">
+		<![CDATA[
+		select * from Point where num = #{num}
+		]]>
+	</select>
+	
+	
+	
+	
+	
    </mapper>
