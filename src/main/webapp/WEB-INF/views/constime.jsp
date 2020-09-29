@@ -27,7 +27,7 @@
  	
  	
  <style type="text/css">
- #no-btn {
+ .no-btn {
  	background-color: #ffffff;
  	border-color: #ea0000;
  	color: #ea0000;
@@ -35,7 +35,7 @@
  	
  }
  
- #no-btn:hover {
+ .no-btn:hover {
 	background-color: #f50000;
 	color: #ffffff;
 }
@@ -43,29 +43,56 @@
  
  </style>
  
-<script type="text/javascript">
-	function timestate(num) {
-		var state = document.getElementById(num).value
-		var time = num
-		
-		$.ajax({
+ <script type="text/javascript">
+ 
+ $(document).ready(function() {
+	 
+	//출력상태 안함 클릭 시 state값 1로 변경
+ $(".yes-btn").click(function() {
+	if(confirm("출력하시겠습니까?") == true) {
+	 var state = $(".yes-btn").val();
+	 var time = $(this).data("num");
+	 $.ajax({
+		url:"timestate.con",
+		type:"post",
+		data: {"state" : state, "time" : time},
+		success:function() {
+				$(".yes-btn"+time).hide();
+				$(".no-btn"+time).show();
+		},
+		error:function(){
+			alert("통신 실패");
+		}
+	  });
+	 } else {
+		 return;
+	 }
+	});
+	
+ //출력상태 안함 클릭 시 state값 0으로 변경
+ $(".no-btn").click(function() {
+	 if(confirm("출력 취소 하시겠습니까?") == true) {
+	 var state = $(".no-btn").val();
+	 var time = $(this).data("num");
+	 $.ajax({
 			url:"timestate.con",
 			type:"post",
-			data:{"state":state,"time":time},
-			success:function(){
-				alert("변경에 성공했습니다 .");
-				if(state==1){
-					document.getElementById(num).innerHTML='<button type="button" class="btn waves-effect waves-light btn-danger no-btn" value="2" id="'+time+'" onclick="timestate('+time+')">안함</button>';
-				}else{
-					document.getElementById(num).innerHTML='<button type="button" class="btn waves-effect waves-light btn-outline-info yes-btn" style="font-size: 0.9rem;" value="1" id="'+time+'" onclick="timestate('+time+')">출력</button>';
-				}
+			data: {"state" : state, "time" : time},
+			success:function() {
+				 	$(".yes-btn"+time).show();
+					$(".no-btn"+time).hide();
 			},
 			error:function(){
-				alert("변경에 실패했습니다 .");
+				alert("통신 실패");
 			}
-		})
-	}
-</script>
+		 });
+	 }else {
+		 return;
+	 }
+	});
+ });
+ </script>
+ 
 </head>
 
 <body>
@@ -345,16 +372,19 @@
                                             <tr align="center" style="text-align: center;">
                                                 <th scope="row" width="100">${i.count}</th>
                                                 <td width="700" >${list.timeName}</td>
-                                                <td width="300" id="chagestate">
-                                                <c:choose>
-                                                	<c:when test="${list.state == 1}">
-                                               		<button type="button" class="btn waves-effect waves-light btn-outline-info yes-btn" style="font-size: 0.9rem;" value="1" id="${list.time}" onclick="timestate(${list.time})">출력</button>
-                                                	</c:when>
-                                                	<c:otherwise>
-                                             		<button type="button" class="btn waves-effect waves-light btn-danger no-btn" value="2" id="${list.time}" onclick="timestate(${list.time})">안함</button>
-                                                	</c:otherwise>
-                                                </c:choose>
+                                                
+                                                <td width="300" class="a-btn" id="${list.state}">
+                                                <c:if test="${list.state == 0}">
+                                                	<button type="button" class="btn waves-effect waves-light btn-outline-info yes-btn yes-btn${list.time}" style="font-size: 0.9rem;" value="1" data-num="${list.time}">출력</button>
+													<button type="button" class="btn waves-effect waves-light btn-danger no-btn no-btn${list.time}" data-num="${list.time}" value="0" style="display: none;">안함</button>
+												</c:if>	                                                
+                                                <c:if test="${list.state == 1}">
+                                                	<button type="button" class="btn waves-effect waves-light btn-danger no-btn no-btn${list.time}" data-num="${list.time}" value="0">안함</button>
+                                                	<button type="button" class="btn waves-effect waves-light btn-outline-info yes-btn yes-btn${list.time}" style="font-size: 0.9rem; display: none;" value="1" data-num="${list.time}">출력</button>
+                                                </c:if>
                                                 </td>
+                                              
+                                                
                                                 <td width="300" >
 													<button type="button" class="btn waves-effect waves-light btn-warning" style="font-size: 0.9rem;">수정</button>
 													<button type="button" class="btn waves-effect waves-light btn-danger" style="font-size: 0.9rem;">삭제</button>
