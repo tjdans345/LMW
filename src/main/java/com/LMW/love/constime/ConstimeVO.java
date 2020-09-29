@@ -1,41 +1,37 @@
 package com.LMW.love.constime;
 
-import java.sql.Time;
 
 import org.springframework.stereotype.Component;
+
 @Component
 public class ConstimeVO {
-	private int state,ReserNum;
-	private String PointName;
-	private Time time;
+	private String time,timeName;
+	private int state;
 	
 	
+
 	public int getState() {
 		return state;
 	}
+
 	public void setState(int state) {
 		this.state = state;
 	}
-	public int getReserNum() {
-		return ReserNum;
-	}
-	public void setReserNum(int reserNum) {
-		ReserNum = reserNum;
-	}
-	public String getPointName() {
-		return PointName;
-	}
-	public void setPointName(String pointName) {
-		PointName = pointName;
-	}
-	public Time getTime() {
+
+	public String getTime() {
 		return time;
 	}
-	public void setTime(Time time) {
+
+	public void setTime(String time) {
 		this.time = time;
 	}
 
-	
-	
+	public String getTimeName() {
+		return timeName;
+	}
 
+	public void setTimeName(String timeName) {
+		this.timeName = timeName;
+	}
+	
 }

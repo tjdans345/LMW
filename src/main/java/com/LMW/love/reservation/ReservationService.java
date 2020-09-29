@@ -12,8 +12,8 @@ public class ReservationService {
 	@Autowired
 	private ReservationDAO reservationDAO;
 	
-	public List reslist(HashMap<String,Object> map) {
-		
+	public List reslist(HashMap<String,Object> map,String nameSerch) {
+		map.put("nameSerch","%"+nameSerch+"%");
 		return reservationDAO.reslist(map);
 	}
 	public List getPoint() {
@@ -34,10 +34,11 @@ public class ReservationService {
 	public void stateChage(int num) {
 		reservationDAO.stateChage(num);
 	}
-	public int restotal() {
-		return reservationDAO.restotal();
-	}
-	public List sizechange(int pagesize) {
-		return reservationDAO.sizechange(pagesize);
+	public int restotal(String pointName, String nameSerch,int statecheck) {
+		HashMap<String,Object> map = new HashMap<String, Object>();
+		map.put("nameSerch","%"+nameSerch+"%");
+		map.put("pointName",pointName);
+		map.put("statecheck",statecheck);
+		return reservationDAO.restotal(map);
 	}
 }

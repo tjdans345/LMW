@@ -23,12 +23,49 @@
     <link href="${contextPath}/resources/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
     <!-- Custom CSS -->
     <link href="${contextPath}/resources/dist/css/style.min.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+ 	<script type="text/javascript"	src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+ 	
+ 	
+ <style type="text/css">
+ #no-btn {
+ 	background-color: #ffffff;
+ 	border-color: #ea0000;
+ 	color: #ea0000;
+ 	font-size: 0.9rem;
+ 	
+ }
+ 
+ #no-btn:hover {
+	background-color: #f50000;
+	color: #ffffff;
+}
+ 
+ 
+ </style>
+ 
+<script type="text/javascript">
+	function timestate(num) {
+		var state = document.getElementById(num).value
+		var time = num
+		
+		$.ajax({
+			url:"timestate.con",
+			type:"post",
+			data:{"state":state,"time":time},
+			success:function(){
+				alert("변경에 성공했습니다 .");
+				if(state==1){
+					document.getElementById(num).innerHTML='<button type="button" class="btn waves-effect waves-light btn-danger no-btn" value="2" id="'+time+'" onclick="timestate('+time+')">안함</button>';
+				}else{
+					document.getElementById(num).innerHTML='<button type="button" class="btn waves-effect waves-light btn-outline-info yes-btn" style="font-size: 0.9rem;" value="1" id="'+time+'" onclick="timestate('+time+')">출력</button>';
+				}
+			},
+			error:function(){
+				alert("변경에 실패했습니다 .");
+			}
+		})
+	}
+</script>
 </head>
 
 <body>
@@ -279,39 +316,7 @@
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
         <div class="page-wrapper">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-             <div class="page-breadcrumb">
-                <div class="row">
-                    <div class="col-7 align-self-center">
-                        <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Good Morning Jason!</h3>
-                        <div class="d-flex align-items-center">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb m-0 p-0">
-                                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a>
-                                    </li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                    <div class="col-5 align-self-center">
-                        <div class="customize-input float-right">
-                            <select class="custom-select custom-select-set form-control bg-white border-0 custom-shadow custom-radius">
-                                <option selected>Aug 19</option>
-                                <option value="1">July 19</option>
-                                <option value="2">Jun 19</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
+           
             <div class="container-fluid">
                 <!-- *************************************************************** -->
                 <!-- Start First Cards -->
@@ -322,39 +327,41 @@
                   <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Default Table</h4>
-                                <h6 class="card-title mt-5"><i
-                                        class="mr-1 font-18 mdi mdi-numeric-1-box-multiple-outline"></i> Table With
-                                    Outside Padding</h6>
+                                <h4 class="card-title">지점 관리</h4>
+                               
+                               
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">First</th>
-                                                <th scope="col">Last</th>
-                                                <th scope="col">Handle</th>
+                                            <tr align="center" style="text-align: center;">
+                                                <th scope="col" width="100" >번호</th>
+                                                <th scope="col" width="700" >지점</th>
+                                                <th scope="col" width="300" >출력 상태</th>
+                                                <th scope="col" width="300" >관리</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
+                                       		<c:forEach var="list" items="${timelist}" varStatus="i">
+                                            <tr align="center" style="text-align: center;">
+                                                <th scope="row" width="100">${i.count}</th>
+                                                <td width="700" >${list.timeName}</td>
+                                                <td width="300" id="chagestate">
+                                                <c:choose>
+                                                	<c:when test="${list.state == 1}">
+                                               		<button type="button" class="btn waves-effect waves-light btn-outline-info yes-btn" style="font-size: 0.9rem;" value="1" id="${list.time}" onclick="timestate(${list.time})">출력</button>
+                                                	</c:when>
+                                                	<c:otherwise>
+                                             		<button type="button" class="btn waves-effect waves-light btn-danger no-btn" value="2" id="${list.time}" onclick="timestate(${list.time})">안함</button>
+                                                	</c:otherwise>
+                                                </c:choose>
+                                                </td>
+                                                <td width="300" >
+													<button type="button" class="btn waves-effect waves-light btn-warning" style="font-size: 0.9rem;">수정</button>
+													<button type="button" class="btn waves-effect waves-light btn-danger" style="font-size: 0.9rem;">삭제</button>
+													
+												</td>
                                             </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>@fat</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td>@twitter</td>
-                                            </tr>
+                                            </c:forEach>
                                         </tbody>
                                     </table>
                                 </div>

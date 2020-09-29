@@ -51,41 +51,18 @@ function stateChage(num) {
 		alert("취소되었습니다.");
 	}
 }
-
-function sizechange() {
+function change() {
+	var nameSerch = $("#nameSerch").val();
+	var pointName = $("#pointchage").val();
 	var pagesize = $("#sizecheck").val();
-	$.ajax({
-		url:"${contextPath}/sizechange.res",
-		type:"GET",
-		data:{"pagesize":pagesize},
-		dataType:"json",
-		success:function(data){
-			$("#listbody").empty();
-			var bodycode = "";
-			for (var i = 0; i < data.length; i++) {
-				bodycode +="<tr><th>"+data[i].num+"</th>";
-				bodycode +="<th><a href='${contextPath}/resView.res?num="+data[i].num+"'>"+data[i].name+"</th>";
-				bodycode +="<th>"+data[i].tel+"</th>";			
-				bodycode +="<th>"+data[i].point+"</th>";
-				bodycode +="<td>"+data[i].visitDate+"</td>";
-				if(data[i].consTime<12) bodycode +="<td>오전"+data[i].conTime+"시</td>";
-				if(data[i].consTime=12) bodycode +="<td>오후"+data[i].conTime+"시</td>";
-				if(data[i].consTime>12) bodycode +="<td>오후"+data[i].conTime-12+"시</td>";
-				bodycode +="<td>"+data[i].regiDate+"</td>";
-				bodycode +="<td id="+data[i].num+">";
-				if(data[i].state==1){
-					bodycode += "<button class=\"btn waves-effect waves-light btn-outline-danger\" onclick=\"stateChage("+data[i].num+")\">대기중</button>";
-				}else{
-					bodycode +="<font color='blue'>확인</font>";
-				}
-				bodycode +="</td></tr>";
-			}
-			$("#listbody").append(bodycode);
-		},
-		error:function(){
-			alert("오류가 있습니다 . ");
-		}
-	});
+	var statecheck = $("#statecheck").val();
+	if($("#statecheck").val()=="대기중"){
+		statecheck = 1;
+	}
+	if($("#statecheck").val()=="확인"){
+		statecheck = 2;
+	}
+	location.href="${contextPath}/rescheck.res?pagesize="+pagesize+"&pointName="+pointName+"&nameSerch="+nameSerch+"&statecheck="+statecheck;
 }
 </script>
 </head>
@@ -391,26 +368,26 @@ function sizechange() {
                                         	<tr>
                                                 <th scope="col">
 													<label>Show
-													<select class="form-control form-control-sm" name="pagesize" id="sizecheck" onchange="sizechange()">
+													<select class="form-control form-control-sm" name="pagesize" id="sizecheck" onchange="change()">
 														<c:choose>
-															<c:when test="${map.nowpage==3}">
-																<option selected>3</option>
+															<c:when test="${map.pagesize==3}">
+																<option selected="selected">3</option>
 															</c:when>
 															<c:otherwise>
 																<option>3</option>
 															</c:otherwise>
 														</c:choose>
 														<c:choose>
-															<c:when test="${map.nowpage==5}">
-																<option selected>5</option>
+															<c:when test="${map.pagesize==5}">
+																<option selected="selected">5</option>
 															</c:when>
 															<c:otherwise>
 																<option>5</option>
 															</c:otherwise>
 														</c:choose>
 														<c:choose>
-															<c:when test="${map.nowpage==10}">
-																<option selected>10</option>
+															<c:when test="${map.pagesize==10}">
+																<option selected="selected">10</option>
 															</c:when>
 															<c:otherwise>
 																<option>10</option>
@@ -419,13 +396,50 @@ function sizechange() {
 													</select>
 													</label>
 												</th>
-                                                <th scope="col">검색</th>
+                                                <th scope="col" colspan="2"> 
+                                  				<div class="input-group">
+                                  				<input type="text" class="form-control" id="nameSerch" placeholder="이름검색" aria-label="이름검색">
+                                  				<div class="input-group-append">
+                                  				<button class="btn btn-outline-secondary" onclick="change()">검색</button>
+                                  				</div>
+                                  				</div>
+                                                <th scope="col">
+													<select class="form-control form-control-sm" name="point" id="pointchage" onchange="change()">
+														<option selected="selected" value="%%">지점선택</option>														
+														<c:forEach items="${point}" var="i">
+															<c:choose>
+																<c:when test="${i.pointName==map.pointName}">
+																<option selected="selected">${i.pointName}</option>
+																</c:when>
+																<c:otherwise>
+																<option>${i.pointName}</option>
+																</c:otherwise>
+															</c:choose>
+														</c:forEach>
+													</select>
+                                                </th>
                                                 <th scope="col"></th>
-                                                <th scope="col">지점</th>
                                                 <th scope="col"></th>
                                                 <th scope="col"></th>
-                                                <th scope="col"></th>
-                                                <th scope="col"></th>
+                                                <th scope="col">
+                                                	<select class="form-control form-control-sm" name="statecheck" id="statecheck" onchange="change()">
+														<option selected="selected" value="0">전체</option>														
+														<c:choose>
+															<c:when test="${map.statecheck==1}">
+																<option selected="selected" value="1">대기중</option>
+																<option>확인</option>
+															</c:when>
+															<c:when test="${map.statecheck==2}">
+																<option>대기중</option>
+																<option selected="selected" value="2">확인</option>
+															</c:when>
+															<c:otherwise>
+																<option>대기중</option>
+																<option>확인</option>
+															</c:otherwise>														
+															</c:choose>												
+													</select>
+                                                </th>
                                             </tr>
                                             <tr>
                                                 <th scope="col">번호</th>
@@ -487,7 +501,7 @@ function sizechange() {
                                             <ul class="pagination">
                                                         <c:if test="${map.nowpage>map.blocksize}">
                                                         <li class="page-item">
-                                                    <a class="page-link" href="${contextPath}/rescheck.res?nowpage=${map.blockfirst-1}"
+                                                    <a class="page-link" href="${contextPath}/rescheck.res?nowpage=${map.blockfirst-1}&pagesize=${map.pagesize}&pointName=${map.pointName}&nameSerch=${map.nameSerch}&statecheck=${map.statecheck}"
                                                         aria-label="Previous">        
                                                         <span aria-hidden="true">&laquo;</span>
                                                         <span class="sr-only">Previous</span>
@@ -495,14 +509,14 @@ function sizechange() {
                                                 </li>
                                                         </c:if>
                                                         
-                                                 <c:forEach begin="${map.blockfirst}" end="${pagesize}" var="i">
+                                                 <c:forEach begin="${map.blockfirst}" end="${map.blocklast}" var="i">
                                                 <li class="page-item"><a class="page-link"
-                                                        href="${contextPath}/rescheck.res?nowpage=${i}">${i}</a></li>
+                                                        href="${contextPath}/rescheck.res?nowpage=${i}&pagesize=${map.pagesize}&pointName=${map.pointName}&nameSerch=${map.nameSerch}&statecheck=${map.statecheck}">${i}</a></li>
                                                  </c:forEach>       
                                                 
                                                 <c:if test="${map.totalpage!=map.blocklast}">
 	                                                <li class="page-item">
-	                                                    <a class="page-link" href="${contextPath}/rescheck.res?nowpage=${map.blocklast+1}" aria-label="Next">
+	                                                    <a class="page-link" href="${contextPath}/rescheck.res?nowpage=${map.blocklast+1}&pagesize=${map.pagesize}&pointName=${map.pointName}&nameSerch=${map.nameSerch}&statecheck=${map.statecheck}" aria-label="Next">
 	                                                        <span aria-hidden="true">&raquo;</span>
 	                                                        <span class="sr-only">Next</span>
 	                                                    </a>
