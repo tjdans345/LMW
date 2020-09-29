@@ -136,7 +136,6 @@
 				//$(".btn-del").click(function() {
 				//새로운 엘리먼트 생성 후(동적으로 생성된 태그 이벤트 처리를 위해서 $(document).on("click","#btn",function(){});) 사용
 				$(document).on("click", ".btn-del", function() {
-					
 					if (confirm("삭제 하시겠습니까?") == true) {
 					$(".btn-delete").remove();
 					var num = $(this).data("num");
