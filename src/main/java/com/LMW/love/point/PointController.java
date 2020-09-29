@@ -1,6 +1,10 @@
 package com.LMW.love.point;
 
+import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,12 +37,32 @@ public class PointController {
 	//출력 상태 변경 메소드
 	@RequestMapping(value = "/yes", method = RequestMethod.POST)
 	@ResponseBody
-	public void changeState(@RequestParam String state, int num, HttpServletRequest request ) {
+	public void changeState(@RequestParam String state, int num, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-		System.out.println("왔다");
+		System.out.println("뭐지?");
 		System.out.println(state);
 		System.out.println(num);
 		
+		response.getWriter().println(pointService.changeState(num, state)); 
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
