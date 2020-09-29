@@ -2,42 +2,52 @@
 <!DOCTYPE mapper
       PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-   <mapper namespace="mapper.Point">
-    	<resultMap type="pointVO" id="PointResult">
-    		<result property="state" column="state" />
-    		<result property="num" column="num" />
-    		<result property="pointName" column="PointName" />
-   </resultMap>
-   
-		<select id="getPoint" resultMap="PointResult">
+<mapper namespace="mapper.Point">
+	<resultMap type="pointVO" id="PointResult">
+		<result property="state" column="state" />
+		<result property="num" column="num" />
+		<result property="pointName" column="PointName" />
+	</resultMap>
+
+	<select id="getPoint" resultMap="PointResult">
 			<![CDATA[
 				select * from point where state=1
 			]]>
-		</select>
-		
+	</select>
+
 	<!-- 지점관리 모든 리스트 조회 -->
 	<select id="allList" resultMap="PointResult">
 		<![CDATA[
 		select * from Point
 		]]>
 	</select>
-	
+
 	<!-- 지점 출력 상태 변경 -->
-	<update id="changeState" parameterType="java.util.HashMap" >
+	<update id="changeState" parameterType="java.util.HashMap">
 		<![CDATA[
 		update Point set state = #{state} where num = #{num}
 		]]>
 	</update>
-	
+
 	<!-- 출력 상태 변경 후 리스트 조회 -->
 	<select id="changeList" resultType="PointVO">
 		<![CDATA[
 		select * from Point where num = #{num}
 		]]>
 	</select>
+
+	<!-- 지점 리스트 추가 -->
+	<insert id="addPoint" parameterType="String">
+		<![CDATA[ 
+		insert into Point(PointName) values(#{pName});
+		]]>
+	</insert>
 	
-	
-	
-	
-	
-   </mapper>
+	<!-- 지점 리스트 삭제 -->
+	<delete id="deletePoint">
+		<![CDATA[ 
+		delete from Point where num = #{num}
+		]]>
+	</delete>
+
+</mapper>
