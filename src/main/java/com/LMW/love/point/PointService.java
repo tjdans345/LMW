@@ -24,7 +24,6 @@ public class PointService {
 		PointVO change = null;
 		//지점상태 변경 여부 확인 
 		int checkResult = pointDAO.changeState(num, state);
-		System.out.println("지점상태여부  :" + checkResult);
 		
 		if(checkResult == 1) {
 			change = pointDAO.changeList(num);
