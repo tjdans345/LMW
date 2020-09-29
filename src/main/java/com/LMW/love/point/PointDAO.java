@@ -24,7 +24,6 @@ public class PointDAO {
 		HashMap map = new HashMap();
 		map.put("num", num);
 		map.put("state", state);
-		
 		return sqlSession.update("mapper.Point.changeState", map);
 		
 	}
