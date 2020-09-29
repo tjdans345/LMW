@@ -1,0 +1,31 @@
+create user 'tester'@'localhost' identified by 'test';					
+create database Test1 default character set UTF8;					
+grant all privileges on Test1.* to 'tester'@'localhost';					
+					
+create table reservation(			예약 reservation		
+num int primary key,			번호 num		
+name varchar(20) not null,			이름 name		
+tel varchar(20) not null,			연락처 tel		
+point int not null,				지점 point		
+VisitDate timestamp not null,		방문날짜 VisitDate		
+ConsTime varchar(20) not null,		상담시간 ConsTime		
+RegiDate timestamp not null,		등록일 RegiDate		
+memo varchar(2000),			남길말 memo		
+state int default 0,				상태 state		
+adminMemo varchar(2000),			관리자메모 adminMemo		
+ModDate timestamp not null		수정일 ModDate		
+);					
+					
+create table Point(				지점 Point		
+num int primary key,			번호 num		
+PointName varchar(20) not null,		지점명 PointName		
+state int default 0				상태 state		
+);
+					
+alter table Point modify num int not null auto_increment;				
+(번호 자동증가 쿼리문)
+
+create table ConsTime(			상담시간 ConsTime		
+time varchar(20),				시간 time		
+timeName varchar(20)			시간이름 timeName		
+);					
