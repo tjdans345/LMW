@@ -4,10 +4,18 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    <mapper namespace="mapper.Constime">
     	<resultMap type="constimeVO" id="ConstimeResult">
-    		<result property="state" column="state" />
-    		<result property="ReserNum" column="ReserNum" />
-    		<result property="PointName" column="PointName" />
     		<result property="time" column="time" />
+    		<result property="timeName" column="timeName" />
+    		<result property="state" column="state"/>
    </resultMap>
-
+	<select id="timelist" resultMap="ConstimeResult">
+		<![CDATA[
+			select * from constime;
+		]]>
+	</select>
+	<update id="timestate" parameterType="hashmap">
+		<![CDATA[
+		update constime set state = #{state} where time = #{time}
+		]]>
+	</update>
    </mapper>
