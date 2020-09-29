@@ -168,7 +168,7 @@
 									str += "</td>"
 									str += "<td width='300'>";
 									str += "<button type='button' class='btn waves-effect waves-light btn-warning' style='font-size: 0.9rem;'>수정</button> \r";
-									str += "<button type='button' class='btn waves-effect waves-light btn-danger btn-del' style='font-size: 0.9rem;' data-num='"+num+"'>삭제z</button>"
+									str += "<button type='button' class='btn waves-effect waves-light btn-danger btn-del' style='font-size: 0.9rem;' data-num='"+num+"'>삭제</button>"
 									str += "</td>"
 									str += "</tr>"
 							});
