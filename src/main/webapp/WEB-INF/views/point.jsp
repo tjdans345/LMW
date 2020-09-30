@@ -133,7 +133,7 @@
 				});
 				
 				//삭제 버튼 클릭
-				//$(".btn-del").click(function() {
+// 				$(".btn-del").click(function() {
 				//새로운 엘리먼트 생성 후(동적으로 생성된 태그 이벤트 처리를 위해서 $(document).on("click","#btn",function(){});) 사용
 				$(document).on("click", ".btn-del", function() {
 					if (confirm("삭제 하시겠습니까?") == true) {
@@ -165,12 +165,12 @@
 									str += "<button type='button' class='btn waves-effect waves-light btn-danger no-btn no-btn"+num+"' data-num='"+num+"' value='1'>안함</button>"; 
 									str += "<button type='button' class='btn waves-effect waves-light btn-outline-info yes-btn yes-btn"+num+"' style='font-size: 0.9rem; display: none;' value='0' data-num='"+num+"'>출력</button>";
 								}
-									str += "</td>"
+									str += "</td>";
 									str += "<td width='300'>";
 									str += "<button type='button' class='btn waves-effect waves-light btn-warning' style='font-size: 0.9rem;'>수정</button> \r";
-									str += "<button type='button' class='btn waves-effect waves-light btn-danger btn-del' style='font-size: 0.9rem;' data-num='"+num+"'>삭제</button>"
-									str += "</td>"
-									str += "</tr>"
+									str += "<button type='button' class='btn waves-effect waves-light btn-danger btn-del' style='font-size: 0.9rem;' data-num='"+num+"'>삭제</button>";
+									str += "</td>";
+									str += "</tr>";
 							});
 									$("#Ltbody").append(str);
 						},
@@ -182,7 +182,8 @@
 						return;
 					}
 				});
-			});
+			
+			}); //도큐먼트 레디 펑션 끝
 			
 			
 			
