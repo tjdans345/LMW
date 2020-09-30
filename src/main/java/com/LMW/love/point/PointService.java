@@ -51,7 +51,6 @@ public class PointService {
 			JSONObject jSONObject = new JSONObject();
 			jSONObject.put("num", pointVO.getNum());
 			jSONObject.put("pointname", pointVO.getPointName());
-			System.out.println(pointVO.getPointName());
 			jSONObject.put("state", pointVO.getState());
 			jSONArray.add(jSONObject);
 		}
