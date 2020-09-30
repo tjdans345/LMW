@@ -147,7 +147,6 @@
 						},
 						dataType : "json",
 						success : function(data) {
-							alert("통신 성공");
 							var str = "";
 							//테이블 출력 부분 자식태그 제거
 							$("#Ltbody").empty();
@@ -155,7 +154,6 @@
 								var num = data[i].num;
 								var pointname = data[i].pointname;
 								var state = data[i].state;
-								alert(state +" "+point +" "+num)
 								str += "<tr align='center' style='text-align: center;'>";
 								str += "<th scope='row' width='100'>"+num+"</th>";
 								str += "<td width='700'>"+pointname+"</td>";
@@ -167,14 +165,13 @@
 									str += "<button type='button' class='btn waves-effect waves-light btn-danger no-btn no-btn"+num+"' data-num='"+num+"' value='1'>안함</button>"; 
 									str += "<button type='button' class='btn waves-effect waves-light btn-outline-info yes-btn yes-btn"+num+"' style='font-size: 0.9rem; display: none;' value='0' data-num='"+num+"'>출력</button>";
 								}
-									str += "</td>"
-									str += "<td width='300'>";git 
+									str += "</td>";
+									str += "<td width='300'>";
 									str += "<button type='button' class='btn waves-effect waves-light btn-warning' style='font-size: 0.9rem;'>수정</button> \r";
-									str += "<button type='button' class='btn waves-effect waves-light btn-danger btn-del' style='font-size: 0.9rem;' data-num='"+num+"'>삭제</button>"
-									str += "</td>"
-									str += "</tr>"
+									str += "<button type='button' class='btn waves-effect waves-light btn-danger btn-del' style='font-size: 0.9rem;' data-num='"+num+"'>삭제</button>";
+									str += "</td>";
+									str += "</tr>";
 							});
-									alert(str);
 									$("#Ltbody").append(str);
 						},
 						error : function(data) {
